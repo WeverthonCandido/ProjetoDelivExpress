@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput, // 1. Import do TextInput
+  TextInput, 
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
@@ -13,13 +13,11 @@ import { cores } from '../constants/theme';
 import { PRODUTOS } from '../mock/produtos';
 
 export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
-  // Estado para armazenar o texto digitado na busca (RF05)
+
   const [busca, setBusca] = useState('');
 
-  // Contador total de itens no carrinho (RF03)
   const totalItensCarrinho = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
 
-  // Filtra os produtos com base no texto digitado (ignora maiúsculas/minúsculas)
   const produtosFiltrados = PRODUTOS.filter((produto) =>
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
@@ -28,7 +26,6 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={cores.primaria} />
       
-      {/* Topo / Header com contador */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>DelivExpress</Text>
         <View style={styles.badgeContainer}>
@@ -36,7 +33,6 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
         </View>
       </View>
 
-      {/* Campo de Busca / Search Bar (RF05) */}
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -44,17 +40,15 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
           placeholderTextColor={cores.secundaria}
           value={busca}
           onChangeText={setBusca}
-          clearButtonMode="while-editing" // Botão 'X' para limpar no iOS
+          clearButtonMode="while-editing"
         />
       </View>
 
-      {/* Lista de Produtos (Filtrados) */}
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {produtosFiltrados.length > 0 ? (
           produtosFiltrados.map((produto) => (
             <View key={produto.id} style={styles.card}>
               
-              {/* Quadrado colorido */}
               <View style={[styles.cardColorBox, { backgroundColor: produto.cor }]} />
               
               <View style={styles.cardDetails}>
@@ -75,7 +69,7 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
             </View>
           ))
         ) : (
-          /* Mensagem caso não encontre nenhum produto */
+
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>Nenhum produto encontrado.</Text>
           </View>
