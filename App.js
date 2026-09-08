@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import CardapioScreen from './src/screens/CardapioScreen';
 
 export default function App() {
-  // Tela atual ('CARDAPIO' | 'CARRINHO' | 'CHECKOUT' | 'CONFIRMACAO')
+
   const [telaAtual, setTelaAtual] = useState('CARDAPIO');
   
-  // Estado global do carrinho
   const [carrinho, setCarrinho] = useState([]);
 
-  // Função para adicionar itens ao carrinho
   const handleAdicionarProduto = (produto) => {
     setCarrinho((itensAnteriores) => {
       const itemExistente = itensAnteriores.find((item) => item.id === produto.id);
@@ -21,7 +19,6 @@ export default function App() {
     });
   };
 
-  // Renderização condicional das telas conforme evoluirmos no projeto
   return (
     <>
       {telaAtual === 'CARDAPIO' && (
@@ -30,7 +27,6 @@ export default function App() {
           onAdicionarProduto={handleAdicionarProduto}
         />
       )}
-      {/* Próximas aulas: CarrinhoScreen, CheckoutScreen, ConfirmacaoScreen */}
     </>
   );
 }
