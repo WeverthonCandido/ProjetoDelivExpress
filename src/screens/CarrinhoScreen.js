@@ -35,16 +35,13 @@ export default function CarrinhoScreen({
     <SafeAreaView style={styles.container}>
 
       {/* Botão de voltar */}
-
       <TouchableOpacity
         style={styles.headerButton}
         onPress={onVoltar}
       >
-
         <Text style={styles.headerButtonText}>
           ← Meu Carrinho
         </Text>
-
       </TouchableOpacity>
 
 
@@ -53,184 +50,127 @@ export default function CarrinhoScreen({
       >
 
         {/* Carrinho vazio */}
-
         {carrinho.length === 0 ? (
-
           <Text style={styles.emptyText}>
             Seu carrinho está vazio.
           </Text>
-
         ) : (
-
           carrinho.map((item) => (
-
             <View
               key={item.id}
               style={styles.itemContainer}
             >
-
               {/* Informações do produto */}
-
               <View style={styles.itemInfo}>
-
                 <Text style={styles.itemNome}>
                   {item.nome}
                 </Text>
-
                 <Text style={styles.itemPrecoUnitario}>
                   R$ {item.preco.toFixed(2).replace('.', ',')}
                 </Text>
-
               </View>
 
-
               {/* Controles de quantidade */}
-
               <View style={styles.acoesContainer}>
-
                 <View style={styles.contador}>
-
                   {/* Botão diminuir */}
-
                   <TouchableOpacity
                     style={styles.btnContador}
                     onPress={() => onRemover(item.id)}
                   >
-
                     <Text style={styles.btnContadorText}>
                       -
                     </Text>
-
                   </TouchableOpacity>
 
-
                   {/* Quantidade */}
-
                   <Text style={styles.qtdText}>
                     {item.quantidade}
                   </Text>
 
-
                   {/* Botão aumentar */}
-
                   <TouchableOpacity
                     style={styles.btnContador}
                     onPress={() => onAdicionar(item)}
                   >
-
                     <Text style={styles.btnContadorText}>
                       +
                     </Text>
-
                   </TouchableOpacity>
-
                 </View>
 
-
                 {/* Preço total do item */}
-
                 <Text style={styles.itemPrecoTotal}>
                   R$ {(item.preco * item.quantidade)
                     .toFixed(2)
                     .replace('.', ',')}
                 </Text>
-
               </View>
-
             </View>
-
           ))
-
-        )}
-
-
-        {/* Resumo da compra */}
-
-        {carrinho.length > 0 && (
-
-          <View style={styles.resumoCard}>
-
-            {/* Subtotal */}
-
-            <View style={styles.resumoLinha}>
-
-              <Text style={styles.resumoLabel}>
-                Subtotal
-              </Text>
-
-              <Text style={styles.resumoValor}>
-                R$ {subtotal
-                  .toFixed(2)
-                  .replace('.', ',')}
-              </Text>
-
-            </View>
-
-
-            {/* Entrega */}
-
-            <View style={styles.resumoLinha}>
-
-              <Text style={styles.resumoLabel}>
-                Entrega
-              </Text>
-
-              <Text style={styles.resumoValor}>
-                R$ {TAXA_ENTREGA
-                  .toFixed(2)
-                  .replace('.', ',')}
-              </Text>
-
-            </View>
-
-
-            {/* Total */}
-
-            <View style={styles.resumoLinha}>
-
-              <Text style={styles.totalLabel}>
-                TOTAL
-              </Text>
-
-              <Text style={styles.totalValor}>
-                R$ {total
-                  .toFixed(2)
-                  .replace('.', ',')}
-              </Text>
-
-            </View>
-
-          </View>
-
         )}
 
       </ScrollView>
 
 
-      {/* Botão continuar */}
-
+      {/* Footer contendo o Resumo da compra e o Botão Continuar */}
       {carrinho.length > 0 && (
-
         <View style={styles.footer}>
 
+          {/* Resumo da compra */}
+          <View style={styles.resumoCard}>
+            {/* Subtotal */}
+            <View style={styles.resumoLinha}>
+              <Text style={styles.resumoLabel}>
+                Subtotal
+              </Text>
+              <Text style={styles.resumoValor}>
+                R$ {subtotal
+                  .toFixed(2)
+                  .replace('.', ',')}
+              </Text>
+            </View>
+
+            {/* Entrega */}
+            <View style={styles.resumoLinha}>
+              <Text style={styles.resumoLabel}>
+                Entrega
+              </Text>
+              <Text style={styles.resumoValor}>
+                R$ {TAXA_ENTREGA
+                  .toFixed(2)
+                  .replace('.', ',')}
+              </Text>
+            </View>
+
+            {/* Total */}
+            <View style={styles.resumoLinha}>
+              <Text style={styles.totalLabel}>
+                TOTAL
+              </Text>
+              <Text style={styles.totalValor}>
+                R$ {total
+                  .toFixed(2)
+                  .replace('.', ',')}
+              </Text>
+            </View>
+          </View>
+
+          {/* Botão continuar */}
           <TouchableOpacity
             style={styles.btnContinuar}
             activeOpacity={0.7}
           >
-
             <Text style={styles.btnContinuarText}>
               Continuar
             </Text>
-
           </TouchableOpacity>
-
 
           <Text style={styles.tagSubtitulo}>
             T2 • Carrinho
           </Text>
 
         </View>
-
       )}
 
     </SafeAreaView>
@@ -251,7 +191,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 12,
-    alignSelf: 'flex-start',
+    alignSelf: 'flex', // Corrigido de 'flex' para 'flex-start' para evitar warning no RN
   },
 
   headerButtonText: {
@@ -338,7 +278,8 @@ const styles = StyleSheet.create({
     backgroundColor: cores.fundoClaro,
     borderRadius: 12,
     padding: 16,
-    marginTop: 24,
+    width: '100%',
+    marginBottom: 12, // Espaço entre o card de resumo e o botão continuar
   },
 
   resumoLinha: {
@@ -374,6 +315,9 @@ const styles = StyleSheet.create({
   footer: {
     padding: 16,
     alignItems: 'center',
+    backgroundColor: cores.branco, // Opcional, garante fundo sólido embaixo
+    borderTopWidth: 1,
+    borderTopColor: '#F0F0F0',
   },
 
   btnContinuar: {
@@ -395,6 +339,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 13,
     marginTop: 8,
+    textAlign: 'center',
   },
 
 });

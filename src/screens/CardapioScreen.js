@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-
 import {
   StyleSheet,
   Text,
   View,
-<<<<<<< HEAD
   TextInput,
-=======
-  TextInput, 
->>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
@@ -18,12 +13,7 @@ import {
 import { cores } from '../constants/theme';
 import { PRODUTOS } from '../mock/produtos';
 
-<<<<<<< HEAD
-export default function CardapioScreen({
-  carrinho,
-  onAdicionarProduto
-}) {
-
+export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
   // Estado para armazenar o texto digitado na busca
   const [busca, setBusca] = useState('');
 
@@ -34,55 +24,31 @@ export default function CardapioScreen({
   );
 
   // Filtra os produtos pela busca
-=======
-export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
-
-  const [busca, setBusca] = useState('');
-
-  const totalItensCarrinho = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
-
->>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
   const produtosFiltrados = PRODUTOS.filter((produto) =>
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (
     <SafeAreaView style={styles.container}>
-<<<<<<< HEAD
-
       <StatusBar
         barStyle="light-content"
         backgroundColor={cores.primaria}
       />
 
       {/* Topo / Header */}
-=======
-      <StatusBar barStyle="light-content" backgroundColor={cores.primaria} />
-      
->>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
       <View style={styles.header}>
-
         <Text style={styles.headerTitle}>
           DelivExpress
         </Text>
-
         <View style={styles.badgeContainer}>
-
           <Text style={styles.badgeText}>
             {totalItensCarrinho}
           </Text>
-
         </View>
-
       </View>
 
-<<<<<<< HEAD
-
       {/* Campo de busca */}
-=======
->>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
       <View style={styles.searchContainer}>
-
         <TextInput
           style={styles.searchInput}
           placeholder="Buscar termos..."
@@ -91,63 +57,33 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
           onChangeText={setBusca}
           clearButtonMode="while-editing"
         />
-
       </View>
 
-<<<<<<< HEAD
-
       {/* Lista de produtos */}
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-      >
-
-=======
       <ScrollView contentContainerStyle={styles.scrollContent}>
->>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
         {produtosFiltrados.length > 0 ? (
-
           produtosFiltrados.map((produto) => (
-<<<<<<< HEAD
-
-            <View
-              key={produto.id}
-              style={styles.card}
-            >
-
+            <View key={produto.id} style={styles.card}>
               {/* Quadrado colorido */}
               <View
                 style={[
                   styles.cardColorBox,
-                  {
-                    backgroundColor: produto.cor
-                  }
+                  { backgroundColor: produto.cor }
                 ]}
               />
 
-
               {/* Informações do produto */}
-=======
-            <View key={produto.id} style={styles.card}>
-              
-              <View style={[styles.cardColorBox, { backgroundColor: produto.cor }]} />
-              
->>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
               <View style={styles.cardDetails}>
-
                 <Text style={styles.cardTitle}>
                   {produto.nome}
                 </Text>
-
                 <Text style={styles.cardDescription}>
                   {produto.descricao}
                 </Text>
-
                 <Text style={styles.cardPrice}>
                   R$ {produto.preco.toFixed(2).replace('.', ',')}
                 </Text>
-
               </View>
-
 
               {/* Botão adicionar */}
               <TouchableOpacity
@@ -155,58 +91,45 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
                 onPress={() => onAdicionarProduto(produto)}
                 activeOpacity={0.7}
               >
-
                 <Text style={styles.addButtonText}>
                   Add
                 </Text>
-
               </TouchableOpacity>
-
             </View>
-
           ))
-
         ) : (
-
           <View style={styles.emptyContainer}>
-
             <Text style={styles.emptyText}>
               Nenhum produto encontrado.
             </Text>
-
           </View>
-
         )}
-
       </ScrollView>
-
+      <Text style={styles.tagSubtitulo}>
+        T1 • Cardápio
+      </Text>
     </SafeAreaView>
   );
 }
 
-
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: cores.fundoClaro,
   },
-
   header: {
-    height: 60,
     backgroundColor: cores.primaria,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    margin: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    alignSelf: 'flex',
   },
-
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: cores.branco,
   },
-
   badgeContainer: {
     backgroundColor: cores.sucesso,
     borderRadius: 12,
@@ -215,18 +138,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   badgeText: {
     color: cores.branco,
     fontWeight: 'bold',
     fontSize: 14,
   },
-
   searchContainer: {
     paddingHorizontal: 16,
     paddingTop: 12,
   },
-
   searchInput: {
     backgroundColor: cores.branco,
     height: 44,
@@ -237,11 +157,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E0E0E0',
   },
-
   scrollContent: {
     padding: 16,
   },
-
   card: {
     backgroundColor: cores.branco,
     borderRadius: 8,
@@ -251,36 +169,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 2,
   },
-
   cardColorBox: {
     width: 70,
     height: 70,
     borderRadius: 6,
   },
-
   cardDetails: {
     flex: 1,
     marginLeft: 12,
   },
-
   cardTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: cores.escura,
   },
-
   cardDescription: {
     fontSize: 14,
     color: cores.secundaria,
     marginVertical: 2,
   },
-
   cardPrice: {
     fontSize: 15,
     fontWeight: 'bold',
     color: cores.erro,
   },
-
   addButton: {
     backgroundColor: cores.sucesso,
     paddingVertical: 8,
@@ -290,25 +202,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   addButtonText: {
     color: cores.branco,
     fontWeight: 'bold',
     fontSize: 14,
   },
-
   emptyContainer: {
     padding: 24,
     alignItems: 'center',
   },
-
   emptyText: {
     color: cores.secundaria,
     fontSize: 14,
   },
-<<<<<<< HEAD
-
+  tagSubtitulo: {
+    color: cores.primaria,
+    fontWeight: 'bold',
+    fontSize: 13,
+    marginTop: 8,
+    textAlign: 'center',
+  },
 });
-=======
-});
->>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
