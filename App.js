@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import CardapioScreen from './src/screens/CardapioScreen';
+import CarrinhoScreen from './src/screens/CarrinhoScreen';
 
 export default function App() {
-  // Tela atual ('CARDAPIO' | 'CARRINHO' | 'CHECKOUT' | 'CONFIRMACAO')
   const [telaAtual, setTelaAtual] = useState('CARDAPIO');
-  
-  // Estado global do carrinho
   const [carrinho, setCarrinho] = useState([]);
 
-  // Função para adicionar itens ao carrinho
+  // Adiciona produto e navega direto para a tela do carrinho
   const handleAdicionarProduto = (produto) => {
     setCarrinho((itensAnteriores) => {
       const itemExistente = itensAnteriores.find((item) => item.id === produto.id);
@@ -19,18 +17,20 @@ export default function App() {
       }
       return [...itensAnteriores, { ...produto, quantidade: 1 }];
     });
+
+    setTelaAtual('CARRINHO'); // Troca a tela para o carrinho ao clicar em Add
   };
 
-  // Renderização condicional das telas conforme evoluirmos no projeto
-  return (
-    <>
-      {telaAtual === 'CARDAPIO' && (
-        <CardapioScreen
-          carrinho={carrinho}
-          onAdicionarProduto={handleAdicionarProduto}
-        />
-      )}
-      {/* Próximas aulas: CarrinhoScreen, CheckoutScreen, ConfirmacaoScreen */}
-    </>
-  );
-}
+  // Diminui a quantidade ou remove o item do carrinho
+  const handleRemoverProduto = (idProduto) => {
+    setCarrinho((itensAnteriores) => {
+      return itensAnteriores
+        .map((item) => {
+          if (item.id === idProduto) {
+            return { ...item, quantidade: item.quantidade - 1 };
+          }
+          return item;
+        })
+        .filter((item) => item.quantidade > 0);
+    });
+  };
