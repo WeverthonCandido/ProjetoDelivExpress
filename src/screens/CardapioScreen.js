@@ -4,7 +4,11 @@ import {
   StyleSheet,
   Text,
   View,
+<<<<<<< HEAD
   TextInput,
+=======
+  TextInput, 
+>>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
@@ -14,6 +18,7 @@ import {
 import { cores } from '../constants/theme';
 import { PRODUTOS } from '../mock/produtos';
 
+<<<<<<< HEAD
 export default function CardapioScreen({
   carrinho,
   onAdicionarProduto
@@ -29,12 +34,21 @@ export default function CardapioScreen({
   );
 
   // Filtra os produtos pela busca
+=======
+export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
+
+  const [busca, setBusca] = useState('');
+
+  const totalItensCarrinho = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
+
+>>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
   const produtosFiltrados = PRODUTOS.filter((produto) =>
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
   return (
     <SafeAreaView style={styles.container}>
+<<<<<<< HEAD
 
       <StatusBar
         barStyle="light-content"
@@ -42,6 +56,10 @@ export default function CardapioScreen({
       />
 
       {/* Topo / Header */}
+=======
+      <StatusBar barStyle="light-content" backgroundColor={cores.primaria} />
+      
+>>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
       <View style={styles.header}>
 
         <Text style={styles.headerTitle}>
@@ -58,8 +76,11 @@ export default function CardapioScreen({
 
       </View>
 
+<<<<<<< HEAD
 
       {/* Campo de busca */}
+=======
+>>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
       <View style={styles.searchContainer}>
 
         <TextInput
@@ -73,15 +94,20 @@ export default function CardapioScreen({
 
       </View>
 
+<<<<<<< HEAD
 
       {/* Lista de produtos */}
       <ScrollView
         contentContainerStyle={styles.scrollContent}
       >
 
+=======
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+>>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
         {produtosFiltrados.length > 0 ? (
 
           produtosFiltrados.map((produto) => (
+<<<<<<< HEAD
 
             <View
               key={produto.id}
@@ -100,6 +126,12 @@ export default function CardapioScreen({
 
 
               {/* Informações do produto */}
+=======
+            <View key={produto.id} style={styles.card}>
+              
+              <View style={[styles.cardColorBox, { backgroundColor: produto.cor }]} />
+              
+>>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
               <View style={styles.cardDetails}>
 
                 <Text style={styles.cardTitle}>
@@ -274,5 +306,9 @@ const styles = StyleSheet.create({
     color: cores.secundaria,
     fontSize: 14,
   },
+<<<<<<< HEAD
 
 });
+=======
+});
+>>>>>>> 4329bf136e0f159a7a70cd4d2402c3a82f4b274a
