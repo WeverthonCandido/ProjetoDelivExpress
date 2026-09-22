@@ -16,8 +16,8 @@ export default function CarrinhoScreen({
   onAdicionar,
   onRemover,
   onVoltar,
+  onContinuar,
 }) {
-
   const TAXA_ENTREGA = 6.0;
 
   const subtotal = carrinho.reduce(
@@ -30,7 +30,6 @@ export default function CarrinhoScreen({
     subtotal +
     (carrinho.length > 0 ? TAXA_ENTREGA : 0);
 
-
   return (
     <SafeAreaView style={styles.container}>
 
@@ -38,12 +37,12 @@ export default function CarrinhoScreen({
       <TouchableOpacity
         style={styles.headerButton}
         onPress={onVoltar}
+        activeOpacity={0.7}
       >
         <Text style={styles.headerButtonText}>
           ← Meu Carrinho
         </Text>
       </TouchableOpacity>
-
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -65,18 +64,24 @@ export default function CarrinhoScreen({
                 <Text style={styles.itemNome}>
                   {item.nome}
                 </Text>
+
                 <Text style={styles.itemPrecoUnitario}>
-                  R$ {item.preco.toFixed(2).replace('.', ',')}
+                  R$ {item.preco
+                    .toFixed(2)
+                    .replace('.', ',')}
                 </Text>
               </View>
 
               {/* Controles de quantidade */}
               <View style={styles.acoesContainer}>
+
                 <View style={styles.contador}>
-                  {/* Botão diminuir */}
+
+                  {/* Diminuir */}
                   <TouchableOpacity
                     style={styles.btnContador}
                     onPress={() => onRemover(item.id)}
+                    activeOpacity={0.7}
                   >
                     <Text style={styles.btnContadorText}>
                       -
@@ -88,15 +93,17 @@ export default function CarrinhoScreen({
                     {item.quantidade}
                   </Text>
 
-                  {/* Botão aumentar */}
+                  {/* Aumentar */}
                   <TouchableOpacity
                     style={styles.btnContador}
                     onPress={() => onAdicionar(item)}
+                    activeOpacity={0.7}
                   >
                     <Text style={styles.btnContadorText}>
                       +
                     </Text>
                   </TouchableOpacity>
+
                 </View>
 
                 {/* Preço total do item */}
@@ -105,6 +112,7 @@ export default function CarrinhoScreen({
                     .toFixed(2)
                     .replace('.', ',')}
                 </Text>
+
               </View>
             </View>
           ))
@@ -112,18 +120,19 @@ export default function CarrinhoScreen({
 
       </ScrollView>
 
-
-      {/* Footer contendo o Resumo da compra e o Botão Continuar */}
+      {/* Footer */}
       {carrinho.length > 0 && (
         <View style={styles.footer}>
 
           {/* Resumo da compra */}
           <View style={styles.resumoCard}>
+
             {/* Subtotal */}
             <View style={styles.resumoLinha}>
               <Text style={styles.resumoLabel}>
                 Subtotal
               </Text>
+
               <Text style={styles.resumoValor}>
                 R$ {subtotal
                   .toFixed(2)
@@ -136,6 +145,7 @@ export default function CarrinhoScreen({
               <Text style={styles.resumoLabel}>
                 Entrega
               </Text>
+
               <Text style={styles.resumoValor}>
                 R$ {TAXA_ENTREGA
                   .toFixed(2)
@@ -148,24 +158,28 @@ export default function CarrinhoScreen({
               <Text style={styles.totalLabel}>
                 TOTAL
               </Text>
+
               <Text style={styles.totalValor}>
                 R$ {total
                   .toFixed(2)
                   .replace('.', ',')}
               </Text>
             </View>
+
           </View>
 
           {/* Botão continuar */}
           <TouchableOpacity
             style={styles.btnContinuar}
             activeOpacity={0.7}
+            onPress={onContinuar}
           >
             <Text style={styles.btnContinuarText}>
               Continuar
             </Text>
           </TouchableOpacity>
 
+          {/* Identificação da tela */}
           <Text style={styles.tagSubtitulo}>
             T2 • Carrinho
           </Text>
@@ -176,7 +190,6 @@ export default function CarrinhoScreen({
     </SafeAreaView>
   );
 }
-
 
 const styles = StyleSheet.create({
 
@@ -191,7 +204,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 12,
-    alignSelf: 'flex', // Corrigido de 'flex' para 'flex-start' para evitar warning no RN
+    alignSelf: 'flex-start',
   },
 
   headerButtonText: {
@@ -279,7 +292,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     width: '100%',
-    marginBottom: 12, // Espaço entre o card de resumo e o botão continuar
+    marginBottom: 12,
   },
 
   resumoLinha: {
@@ -315,7 +328,7 @@ const styles = StyleSheet.create({
   footer: {
     padding: 16,
     alignItems: 'center',
-    backgroundColor: cores.branco, // Opcional, garante fundo sólido embaixo
+    backgroundColor: cores.branco,
     borderTopWidth: 1,
     borderTopColor: '#F0F0F0',
   },
