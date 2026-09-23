@@ -40,6 +40,7 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
         <Text style={styles.headerTitle}>
           DelivExpress
         </Text>
+
         <View style={styles.badgeContainer}>
           <Text style={styles.badgeText}>
             {totalItensCarrinho}
@@ -51,24 +52,28 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
-          placeholder="Buscar termos..."
+          placeholder="Buscar produto..."
           placeholderTextColor={cores.secundaria}
           value={busca}
           onChangeText={setBusca}
-          clearButtonMode="while-editing"
         />
       </View>
 
       {/* Lista de produtos */}
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+      >
         {produtosFiltrados.length > 0 ? (
           produtosFiltrados.map((produto) => (
-            <View key={produto.id} style={styles.card}>
+            <View
+              key={produto.id}
+              style={styles.card}
+            >
               {/* Quadrado colorido */}
               <View
                 style={[
                   styles.cardColorBox,
-                  { backgroundColor: produto.cor }
+                  { backgroundColor: produto.cor || cores.primaria }
                 ]}
               />
 
@@ -77,9 +82,11 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
                 <Text style={styles.cardTitle}>
                   {produto.nome}
                 </Text>
+
                 <Text style={styles.cardDescription}>
                   {produto.descricao}
                 </Text>
+
                 <Text style={styles.cardPrice}>
                   R$ {produto.preco.toFixed(2).replace('.', ',')}
                 </Text>
@@ -104,10 +111,11 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
             </Text>
           </View>
         )}
+
+        <Text style={styles.tagSubtitulo}>
+          T1 • Cardápio
+        </Text>
       </ScrollView>
-      <Text style={styles.tagSubtitulo}>
-        T1 • Cardápio
-      </Text>
     </SafeAreaView>
   );
 }
@@ -117,36 +125,44 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: cores.fundoClaro,
   },
+
   header: {
     backgroundColor: cores.primaria,
     margin: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
     borderRadius: 12,
-    alignSelf: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
+
   headerTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     color: cores.branco,
   },
+
   badgeContainer: {
     backgroundColor: cores.sucesso,
-    borderRadius: 12,
+    borderRadius: 14,
     width: 28,
     height: 28,
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   badgeText: {
     color: cores.branco,
     fontWeight: 'bold',
     fontSize: 14,
   },
+
   searchContainer: {
     paddingHorizontal: 16,
     paddingTop: 12,
   },
+
   searchInput: {
     backgroundColor: cores.branco,
     height: 44,
@@ -157,9 +173,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E0E0E0',
   },
+
   scrollContent: {
     padding: 16,
   },
+
   card: {
     backgroundColor: cores.branco,
     borderRadius: 8,
@@ -169,30 +187,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 2,
   },
+
   cardColorBox: {
     width: 70,
     height: 70,
     borderRadius: 6,
   },
+
   cardDetails: {
     flex: 1,
     marginLeft: 12,
   },
+
   cardTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: cores.escura,
   },
+
   cardDescription: {
     fontSize: 14,
     color: cores.secundaria,
     marginVertical: 2,
   },
+
   cardPrice: {
     fontSize: 15,
     fontWeight: 'bold',
     color: cores.erro,
   },
+
   addButton: {
     backgroundColor: cores.sucesso,
     paddingVertical: 8,
@@ -202,19 +226,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   addButtonText: {
     color: cores.branco,
     fontWeight: 'bold',
     fontSize: 14,
   },
+
   emptyContainer: {
     padding: 24,
     alignItems: 'center',
   },
+
   emptyText: {
     color: cores.secundaria,
     fontSize: 14,
   },
+
   tagSubtitulo: {
     color: cores.primaria,
     fontWeight: 'bold',

@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 12,
-    alignSelf: 'flex-start',
+    alignSelf: 'flex',
   },
 
   headerButtonText: {

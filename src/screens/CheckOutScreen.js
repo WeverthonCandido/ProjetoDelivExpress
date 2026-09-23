@@ -58,8 +58,6 @@ export default function CheckOutScreen({ onVoltar }) {
     };
 
     const cepValido = cep.length === 8;
-    const numValido = 
-
     const finalizarPedido = () => {
         if (!nome.trim()) {
             Alert.alert(
@@ -316,7 +314,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 16,
         borderRadius: 10,
-        alignSelf: 'flex-start',
+        alignSelf: 'flex',
         marginBottom: 14,
     },
 
