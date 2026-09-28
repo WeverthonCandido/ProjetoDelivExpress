@@ -14,15 +14,24 @@ import {
 
 import { cores } from '../constants/theme';
 
-export default function CheckOutScreen({ onVoltar }) {
+export default function CheckOutScreen({
+    onVoltar,
+    onFinalizar,
+}) {
+
     const [nome, setNome] = useState('');
     const [telefone, setTelefone] = useState('');
+
     const [complemento, setCompl] = useState('');
     const [numero, setNumber] = useState('');
     const [endereço, setEndereco] = useState('');
     const [referencia, setReferencia] = useState('');
+
     const [cep, setCep] = useState('');
-    const [pagamento, setPagamento] = useState('Cartão');
+
+    const [pagamento, setPagamento] =
+        useState('Cartão');
+
     const [mostrarOpcoesPagamento, setMostrarOpcoesPagamento] =
         useState(false);
 
@@ -34,15 +43,19 @@ export default function CheckOutScreen({ onVoltar }) {
 
     // Máscara simples de telefone
     const handleTelefone = (texto) => {
+
         const numeros = texto.replace(/\D/g, '');
 
         let formatado = numeros;
 
         if (numeros.length <= 10) {
+
             formatado = numeros
                 .replace(/^(\d{2})(\d)/, '($1) $2')
                 .replace(/(\d{4})(\d)/, '$1-$2');
+
         } else {
+
             formatado = numeros
                 .replace(/^(\d{2})(\d)/, '($1) $2')
                 .replace(/(\d{5})(\d)/, '$1-$2');
@@ -53,44 +66,80 @@ export default function CheckOutScreen({ onVoltar }) {
 
     // Mantém somente os números do CEP
     const handleCep = (texto) => {
-        const numeros = texto.replace(/\D/g, '').slice(0, 8);
+
+        const numeros = texto
+            .replace(/\D/g, '')
+            .slice(0, 8);
+
         setCep(numeros);
     };
 
     const cepValido = cep.length === 8;
+
+    // Finalizar pedido
     const finalizarPedido = () => {
+
         if (!nome.trim()) {
+
             Alert.alert(
                 'Dados incompletos',
                 'Digite seu nome.'
             );
+
             return;
         }
 
         if (!telefone.trim()) {
+
             Alert.alert(
                 'Dados incompletos',
                 'Digite seu telefone.'
             );
+
+            return;
+        }
+
+        if (!endereço.trim()) {
+
+            Alert.alert(
+                'Dados incompletos',
+                'Digite seu endereço.'
+            );
+
+            return;
+        }
+
+        if (!numero.trim()) {
+
+            Alert.alert(
+                'Dados incompletos',
+                'Digite o número da residência.'
+            );
+
             return;
         }
 
         if (!cepValido) {
+
             Alert.alert(
                 'CEP inválido',
                 'O CEP deve ter 8 dígitos.'
             );
+
             return;
         }
 
-        Alert.alert(
-            'Pedido finalizado!',
-            `Obrigado, ${nome}. Seu pedido foi recebido.`
-        );
+        // Envia os dados para a tela de confirmação
+        onFinalizar({
+            endereco: endereço,
+            numero: numero,
+            pagamento: pagamento,
+        });
     };
 
     return (
         <SafeAreaView style={styles.container}>
+
             <StatusBar
                 barStyle="light-content"
                 backgroundColor={cores.primaria}
@@ -100,19 +149,23 @@ export default function CheckOutScreen({ onVoltar }) {
                 contentContainerStyle={styles.scrollContent}
                 keyboardShouldPersistTaps="handled"
             >
+
                 {/* Botão voltar */}
                 <TouchableOpacity
                     style={styles.headerButton}
                     onPress={onVoltar}
                     activeOpacity={0.8}
                 >
+
                     <Text style={styles.headerButtonText}>
                         ← Dados de Entrega
                     </Text>
+
                 </TouchableOpacity>
 
                 {/* Nome */}
                 <View style={styles.fieldContainer}>
+
                     <Text style={styles.label}>
                         Nome
                     </Text>
@@ -125,10 +178,12 @@ export default function CheckOutScreen({ onVoltar }) {
                         placeholderTextColor={cores.secundaria}
                         autoCapitalize="words"
                     />
+
                 </View>
 
                 {/* Telefone */}
                 <View style={styles.fieldContainer}>
+
                     <Text style={styles.label}>
                         Telefone
                     </Text>
@@ -142,10 +197,12 @@ export default function CheckOutScreen({ onVoltar }) {
                         keyboardType="phone-pad"
                         maxLength={15}
                     />
+
                 </View>
 
-               {/* Endereço */}                
+                {/* Endereço */}
                 <View style={styles.fieldContainer}>
+
                     <Text style={styles.label}>
                         Endereço
                     </Text>
@@ -153,14 +210,17 @@ export default function CheckOutScreen({ onVoltar }) {
                     <TextInput
                         style={styles.input}
                         value={endereço}
-                        placeholder="Endereço"
+                        onChangeText={setEndereco}
+                        placeholder="Rua Exemplo"
                         placeholderTextColor="#8A8F98"
-                        maxLength={15}
+                        maxLength={50}
                     />
+
                 </View>
-                
-               {/* Número */}                
+
+                {/* Número */}
                 <View style={styles.fieldContainer}>
+
                     <Text style={styles.label}>
                         Número
                     </Text>
@@ -168,13 +228,18 @@ export default function CheckOutScreen({ onVoltar }) {
                     <TextInput
                         style={styles.input}
                         value={numero}
+                        onChangeText={setNumber}
                         placeholder="Ex: 111"
                         placeholderTextColor="#8A8F98"
-                        maxLength={15}
+                        keyboardType="numeric"
+                        maxLength={10}
                     />
+
                 </View>
-               {/* Complemento*/}                
+
+                {/* Complemento */}
                 <View style={styles.fieldContainer}>
+
                     <Text style={styles.label}>
                         Complemento
                     </Text>
@@ -182,13 +247,17 @@ export default function CheckOutScreen({ onVoltar }) {
                     <TextInput
                         style={styles.input}
                         value={complemento}
-                        placeholder="Opicional"
+                        onChangeText={setCompl}
+                        placeholder="Opcional"
                         placeholderTextColor="#8A8F98"
-                        maxLength={15}
+                        maxLength={30}
                     />
+
                 </View>
-               {/* Referencia*/}                
+
+                {/* Referência */}
                 <View style={styles.fieldContainer}>
+
                     <Text style={styles.label}>
                         Referência
                     </Text>
@@ -196,14 +265,17 @@ export default function CheckOutScreen({ onVoltar }) {
                     <TextInput
                         style={styles.input}
                         value={referencia}
-                        placeholder="Opicional"
+                        onChangeText={setReferencia}
+                        placeholder="Opcional"
                         placeholderTextColor="#8A8F98"
-                        maxLength={15}
+                        maxLength={50}
                     />
+
                 </View>
 
                 {/* CEP */}
                 <View style={styles.fieldContainer}>
+
                     <Text style={styles.label}>
                         CEP
                     </Text>
@@ -217,22 +289,23 @@ export default function CheckOutScreen({ onVoltar }) {
                         ]}
                         value={cep}
                         onChangeText={handleCep}
-                        placeholder="1301"
+                        placeholder="13010000"
                         placeholderTextColor={cores.secundaria}
                         keyboardType="numeric"
                         maxLength={8}
                     />
 
-                    {/* Mensagem de erro */}
                     {!cepValido && cep.length > 0 && (
                         <Text style={styles.errorText}>
                             ⚠ CEP deve ter 8 dígitos.
                         </Text>
                     )}
+
                 </View>
 
                 {/* Pagamento */}
                 <View style={styles.fieldContainer}>
+
                     <Text style={styles.label}>
                         Pagamento
                     </Text>
@@ -246,6 +319,7 @@ export default function CheckOutScreen({ onVoltar }) {
                         }
                         activeOpacity={0.8}
                     >
+
                         <Text style={styles.selectText}>
                             {pagamento}
                         </Text>
@@ -253,11 +327,15 @@ export default function CheckOutScreen({ onVoltar }) {
                         <Text style={styles.arrow}>
                             ▼
                         </Text>
+
                     </TouchableOpacity>
 
                     {mostrarOpcoesPagamento && (
+
                         <View style={styles.optionsContainer}>
+
                             {pagamentos.map((opcao) => (
+
                                 <TouchableOpacity
                                     key={opcao}
                                     style={styles.option}
@@ -266,16 +344,22 @@ export default function CheckOutScreen({ onVoltar }) {
                                         setMostrarOpcoesPagamento(false);
                                     }}
                                 >
+
                                     <Text style={styles.optionText}>
                                         {opcao}
                                     </Text>
+
                                 </TouchableOpacity>
+
                             ))}
+
                         </View>
+
                     )}
+
                 </View>
 
-                {/* Espaço flexível antes do botão */}
+                {/* Espaço */}
                 <View style={styles.spacer} />
 
                 {/* Finalizar pedido */}
@@ -284,21 +368,26 @@ export default function CheckOutScreen({ onVoltar }) {
                     onPress={finalizarPedido}
                     activeOpacity={0.8}
                 >
+
                     <Text style={styles.finalizarButtonText}>
                         Finalizar pedido
                     </Text>
+
                 </TouchableOpacity>
 
-                {/* Identificação da tela */}
+                {/* Identificação */}
                 <Text style={styles.tagSubtitulo}>
                     T3 • Checkout
                 </Text>
+
             </ScrollView>
+
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: cores.branco,
@@ -404,7 +493,7 @@ const styles = StyleSheet.create({
 
     spacer: {
         flex: 1,
-        minHeight: 80,
+        minHeight: 60,
     },
 
     finalizarButton: {
@@ -429,4 +518,5 @@ const styles = StyleSheet.create({
         marginTop: 5,
         textAlign: 'center',
     },
+
 });
