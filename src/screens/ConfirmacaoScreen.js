@@ -40,20 +40,17 @@ export default function ConfirmacaoScreen({
 
                 </View>
 
-                {/* Título */}
+
                 <Text style={styles.titulo}>
                     Pedido confirmado!
                 </Text>
 
-                {/* Número do pedido */}
                 <Text style={styles.numeroPedido}>
                     Pedido #{numeroPedido}
                 </Text>
 
-                {/* Linha */}
                 <View style={styles.linha} />
 
-                {/* Produtos */}
                 <View style={styles.produtos}>
 
                     {carrinho.map((item) => (
@@ -69,10 +66,7 @@ export default function ConfirmacaoScreen({
 
                 </View>
 
-                {/* Linha */}
                 <View style={styles.linha} />
-
-                {/* Total */}
                 <View style={styles.infoLinha}>
 
                     <Text style={styles.totalLabel}>

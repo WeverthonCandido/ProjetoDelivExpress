@@ -14,16 +14,15 @@ import { cores } from '../constants/theme';
 import { PRODUTOS } from '../mock/produtos';
 
 export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
-  // Estado para armazenar o texto digitado na busca
+
   const [busca, setBusca] = useState('');
 
-  // Contador total de itens no carrinho
+
   const totalItensCarrinho = carrinho.reduce(
     (acc, item) => acc + item.quantidade,
     0
   );
 
-  // Filtra os produtos pela busca
   const produtosFiltrados = PRODUTOS.filter((produto) =>
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
@@ -35,7 +34,6 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
         backgroundColor={cores.primaria}
       />
 
-      {/* Topo / Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>
           DelivExpress
@@ -48,7 +46,7 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
         </View>
       </View>
 
-      {/* Campo de busca */}
+
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -59,7 +57,7 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
         />
       </View>
 
-      {/* Lista de produtos */}
+
       <ScrollView
         contentContainerStyle={styles.scrollContent}
       >
@@ -69,7 +67,6 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
               key={produto.id}
               style={styles.card}
             >
-              {/* Quadrado colorido */}
               <View
                 style={[
                   styles.cardColorBox,
@@ -77,7 +74,6 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
                 ]}
               />
 
-              {/* Informações do produto */}
               <View style={styles.cardDetails}>
                 <Text style={styles.cardTitle}>
                   {produto.nome}
@@ -92,7 +88,6 @@ export default function CardapioScreen({ carrinho, onAdicionarProduto }) {
                 </Text>
               </View>
 
-              {/* Botão adicionar */}
               <TouchableOpacity
                 style={styles.addButton}
                 onPress={() => onAdicionarProduto(produto)}

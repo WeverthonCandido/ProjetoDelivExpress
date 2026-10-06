@@ -33,7 +33,6 @@ export default function CarrinhoScreen({
   return (
     <SafeAreaView style={styles.container}>
 
-      {/* Botão de voltar */}
       <TouchableOpacity
         style={styles.headerButton}
         onPress={onVoltar}
@@ -48,7 +47,6 @@ export default function CarrinhoScreen({
         contentContainerStyle={styles.scrollContent}
       >
 
-        {/* Carrinho vazio */}
         {carrinho.length === 0 ? (
           <Text style={styles.emptyText}>
             Seu carrinho está vazio.
@@ -59,7 +57,6 @@ export default function CarrinhoScreen({
               key={item.id}
               style={styles.itemContainer}
             >
-              {/* Informações do produto */}
               <View style={styles.itemInfo}>
                 <Text style={styles.itemNome}>
                   {item.nome}
@@ -72,12 +69,10 @@ export default function CarrinhoScreen({
                 </Text>
               </View>
 
-              {/* Controles de quantidade */}
               <View style={styles.acoesContainer}>
 
                 <View style={styles.contador}>
 
-                  {/* Diminuir */}
                   <TouchableOpacity
                     style={styles.btnContador}
                     onPress={() => onRemover(item.id)}
@@ -87,13 +82,9 @@ export default function CarrinhoScreen({
                       -
                     </Text>
                   </TouchableOpacity>
-
-                  {/* Quantidade */}
                   <Text style={styles.qtdText}>
                     {item.quantidade}
                   </Text>
-
-                  {/* Aumentar */}
                   <TouchableOpacity
                     style={styles.btnContador}
                     onPress={() => onAdicionar(item)}
@@ -106,7 +97,6 @@ export default function CarrinhoScreen({
 
                 </View>
 
-                {/* Preço total do item */}
                 <Text style={styles.itemPrecoTotal}>
                   R$ {(item.preco * item.quantidade)
                     .toFixed(2)
@@ -120,14 +110,11 @@ export default function CarrinhoScreen({
 
       </ScrollView>
 
-      {/* Footer */}
       {carrinho.length > 0 && (
         <View style={styles.footer}>
 
-          {/* Resumo da compra */}
           <View style={styles.resumoCard}>
 
-            {/* Subtotal */}
             <View style={styles.resumoLinha}>
               <Text style={styles.resumoLabel}>
                 Subtotal
@@ -140,7 +127,6 @@ export default function CarrinhoScreen({
               </Text>
             </View>
 
-            {/* Entrega */}
             <View style={styles.resumoLinha}>
               <Text style={styles.resumoLabel}>
                 Entrega
@@ -153,7 +139,6 @@ export default function CarrinhoScreen({
               </Text>
             </View>
 
-            {/* Total */}
             <View style={styles.resumoLinha}>
               <Text style={styles.totalLabel}>
                 TOTAL
@@ -168,7 +153,6 @@ export default function CarrinhoScreen({
 
           </View>
 
-          {/* Botão continuar */}
           <TouchableOpacity
             style={styles.btnContinuar}
             activeOpacity={0.7}
